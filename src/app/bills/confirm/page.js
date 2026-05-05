@@ -3,7 +3,7 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { ArrowLeft, CheckCircle2, ShieldCheck } from "lucide-react";
 
-export default function ConfirmPage() {
+export default function Page() {
   const params = useSearchParams();
   const router = useRouter();
 
