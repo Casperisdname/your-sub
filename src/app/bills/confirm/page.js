@@ -2,10 +2,20 @@
 
 export const dynamic = "force-dynamic";
 
+import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 
 export default function ConfirmPage() {
+  return (
+    <Suspense fallback={<div className="p-6">Loading...</div>}>
+      <ConfirmContent />
+    </Suspense>
+  );
+}
+
+/* 👇 THIS HOLDS useSearchParams */
+function ConfirmContent() {
   const params = useSearchParams();
   const router = useRouter();
 
@@ -21,7 +31,6 @@ export default function ConfirmPage() {
   const price = params.get("price") || "";
   const amount = params.get("amount") || "";
 
-  // SAFE NUMBER HANDLING (prevents NaN crash)
   const total = Number(amount || price || 0);
 
   const isAirtime = network || phone;
@@ -103,7 +112,7 @@ export default function ConfirmPage() {
         </div>
 
         {/* PAY BUTTON */}
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl text-lg shadow-lg transition active:scale-[0.98]">
+        <button className="w-full bg-blue-600 text-white py-5 rounded-2xl text-lg font-bold active:scale-[0.98]">
           Pay ₦{total.toLocaleString()}
         </button>
 
